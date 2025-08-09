@@ -15,6 +15,9 @@ projects:
 workflows:
   default:
     plan:
-      steps: [init, fmt, validate plan]
+      steps:
+        - init
+        - plan
     apply:
-      steps: [apply]
+      steps:
+        - apply
