@@ -1,0 +1,15 @@
+---
+- name: Ansible playbook for nginx installation.
+  hosts: "{{ target }}"
+  become: true
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+    - name: Ensure nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: true

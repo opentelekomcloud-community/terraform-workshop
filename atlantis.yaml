@@ -1,0 +1,20 @@
+version: 3
+
+projects:
+  - name: minimal
+    dir: terraform-minimal
+    workspace: default
+    autoplan:
+      enabled: true
+      when_modified:
+        - "**/*.tf"
+        - ".terraform.lock.hcl"
+    terraform_version: v1.7.5
+    apply_requirements: ["approved", "mergeable"]
+
+workflows:
+  default:
+    plan:
+      steps: [init, fmt, validate plan]
+    apply:
+      steps: [apply]
