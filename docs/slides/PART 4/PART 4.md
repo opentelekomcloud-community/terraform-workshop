@@ -1,4 +1,9 @@
 ## Slide 1  Multitenancy in Terraform:
+In this section, we’ll explore how to manage multiple tenants or environments in Terraform, especially when using remote state for storing .tfstate files.
+
+We’ll compare two main approaches: folder-based separation and workspace-based separation and examine how each handles backend configuration, state isolation, and operational complexity.
+
+By the end, you’ll know which approach best fits your infrastructure and security requirements, and how to combine them with shared modules for an efficient multitenancy setup.
 
 ## Slide 2 Folder-based Separation
 In a folder-based approach, each tenant or environment has its own directory.
@@ -27,15 +32,15 @@ Folder-based separation gives us fully isolated backends and state files per ten
 
 It also provides clear separation for access control and compliance.
 
-On the downside, it creates more file duplication — you often have to repeat backend and provider configuration — and without modules, it’s harder to keep everything consistent.
+On the downside, it creates more file duplication, you often have to repeat backend and provider configuration and without modules, it’s harder to keep everything consistent.
 
 ## Slide 5 Pros & Cons: Workspace-based
 With remote state, workspace-based separation:
  * Automatically isolates state files by workspace key naming.
- * Uses one backend configuration for all tenants — easy to set up and DRY.
+ * Uses one backend configuration for all tenants: easy to set up and DRY.
 
 The limitation is that you cannot vary backend settings or credentials per tenant. All share the same OBS bucket and auth.
-Workspace-based separation minimizes duplication — there’s only one set of Terraform files to maintain.
+Workspace-based separation minimizes duplication, there’s only one set of Terraform files to maintain.
 
 It’s easy to switch tenants with a single command, and all tenants automatically share module code.
 
@@ -47,10 +52,8 @@ There’s also a risk of accidentally running commands in the wrong workspace if
 When using remote state:
  * Use folders if you need different credentials, buckets, or backend types per tenant.
  * Use workspaces if you want simplicity, all tenants are similar, and one backend fits all.
-You can also combine — shared modules for consistency, plus the separation method that fits your state storage and security needs.
+You can also combine: shared modules for consistency, plus the separation method that fits your state storage and security needs.
 
 Folder-based separation works best when tenants have different configurations, different credentials, or strict isolation requirements.
 
 Workspace-based separation works best when all tenants are very similar, and you want maximum code reuse with minimal duplication.
-
-In many real-world cases, a hybrid approach works well — shared modules for consistency, and either folders or workspaces depending on the complexity and security needs of the tenants.

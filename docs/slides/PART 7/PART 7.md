@@ -1,26 +1,11 @@
-## Slide 1 Language-based IaC
+## Slide 2
 
-Pulumi takes a different approach from Terraform, instead of using a domain-specific language like HCL, it allows you to write your infrastructure as code in general-purpose programming languages.
+Over the past sessions, we’ve walked through the core concepts of Infrastructure as Code,
+explored Terraform’s building blocks, practiced using the OpenTelekomCloud provider,
+and looked at advanced patterns like automation with Ansible, multitenancy, and GitOps workflows.
 
-You can use `Python`, `TypeScript/JavaScript`, `Go`, or `C#`.
+You’ve seen how to start from a minimal deployment, grow it into reusable modules, and manage multiple tenants or environments with safe, remote-stored state.
 
-This opens the door to leveraging familiar language features like `loops`, `conditionals`, `functions`, and even `unit testing` in your infrastructure definitions.
-It can be easier for development teams to adopt if they want infrastructure code to live alongside application code.
+The goal isn’t just to learn commands — it’s to design infrastructure that is consistent, secure, and easy to evolve.
 
-## Slide 2 Mapping to OTC/OpenStack Provider
-Pulumi interacts with cloud platforms using `SDKs` and `APIs`, just like `Terraform` uses providers.
-For `OpenTelekomCloud`, Pulumi we can even use the `OpenStack` provider, because OTC is `OpenStack-based`.
-
-The concepts are similar — you’ll define resources like instances, networks, and volumes — but you’ll use the syntax of the programming language you choose.
-If you know how to use the OTC provider in Terraform, mapping that knowledge to Pulumi’s OpenStack provider is straightforward.
-
-## Slide 3 Pulumi Example (Python)
-Here’s a simple Pulumi example in Python for creating a VM.
-
-We import pulumi and pulumi_openstack, then define a new Instance resource called `workshop-vm`.
-
-We specify the image, flavor, and network just like we would in `Terraform`, but here it’s Python code.
-
-Finally, we export the VM’s public IP as an output, so it’s displayed after the deployment.
-
-This shows how similar the concepts are between Pulumi and Terraform, even though the syntax and execution model differ.
+Whether you apply these patterns with Terraform, integrate them into CI/CD pipelines, or extend them with other IaC tools, the principles remain the same: version your infrastructure, review every change, and automate wherever you can.

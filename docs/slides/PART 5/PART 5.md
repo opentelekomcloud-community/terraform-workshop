@@ -19,10 +19,10 @@ This setup can be expanded with steps like terraform `fmt`, `validate`, or `tfse
 
 ## Slide 3 Atlantis Demo Flow
 Let’s walk through the Atlantis workflow in practice:
- - Step 1 — A developer opens a pull request with Terraform changes.
- - Step 2 — Atlantis automatically detects the change and runs a plan, posting the output as a PR comment.
- - Step 3 — The reviewer reads the plan, checks for correctness, and if it’s good, approves the PR.
- - Step 4 — The reviewer comments atlantis apply in the PR, triggering the apply step.
- - Step 5 — Atlantis applies the changes and posts the final output as a PR comment.
- - 
+ - Step 1: A developer opens a pull request with Terraform changes.
+ - Step 2: Atlantis automatically detects the change and runs a plan, posting the output as a PR comment.
+ - Step 3: The reviewer reads the plan, checks for correctness, and if it’s good, approves the PR.
+ - Step 4: The reviewer comments atlantis apply in the PR, triggering the apply step.
+ - Step 5: Atlantis applies the changes and posts the final output as a PR comment.
+
 This process keeps the entire change history in Git and ensures consistent, collaborative infrastructure management.

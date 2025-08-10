@@ -10,9 +10,13 @@ Choosing between count and for_each depends on whether you need positional index
 
 ## Slide 2 Conditionals in Terraform:
 Conditionals let us control resource attributes or even whether a resource is created at all.
-The syntax is: condition ? true_value : false_value.
+
+The syntax is: `condition ? true_value : false_value`.
+
 This is useful for things like controlling high availability.
-For example, if high_availability is set to true, we can deploy one VM per availability zone; otherwise, just deploy one VM.
+
+For example, if `high_availability is set to true`, we can deploy one VM per availability zone, otherwise, just deploy one VM.
+
 This makes configurations more adaptable without duplicating code.
 
 ## Slide 3 Local Values:
