@@ -10,16 +10,6 @@ unzip terraform.zip && sudo mv terraform /usr/local/bin/
 ### Windows
 choco install terraform
 
-# Terragrunt
-
-### Mac
-brew install terragrunt
-### Linux
-curl -L https://github.com/gruntwork-io/terragrunt/releases/latest/download/terragrunt_linux_amd64 -o terragrunt
-chmod +x terragrunt && sudo mv terragrunt /usr/local/bin/
-### Windows
-choco install terragrunt
-
 # Pulumi
 ### Mac
 brew install pulumi/tap/pulumi

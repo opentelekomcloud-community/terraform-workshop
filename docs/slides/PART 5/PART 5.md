@@ -10,12 +10,10 @@ Once the changes are approved, an authorized reviewer can trigger apply directly
 This setup ensures every infrastructure change is `peer-reviewed`, `tested`, and `auditable`.
 
 ## Slide 2 Example atlantis.yaml
-Here’s a minimal `atlantis.yaml` configuration file for a `Terragrunt`-based project.
+Here’s a minimal `atlantis.yaml` configuration file for a `terraform`-based project.
 
-In this example, we have a single project called `dev-env` pointing to the `terragrunt-live/eu-de/dev` directory.
-The workflow named `terragrunt` defines two stages — plan and apply.
-
-Each stage uses `terragrunt run-all` so that all modules in the environment are processed together.
+In this example, we have a single project called `minimal` pointing to the `terraform-minimal` directory.
+The workflow named `terraform` defines two stages — plan and apply.
 
 This setup can be expanded with steps like terraform `fmt`, `validate`, or `tfsec` to enforce quality and security checks automatically.
 

@@ -12,6 +12,26 @@ projects:
         - ".terraform.lock.hcl"
     terraform_version: v1.7.5
     apply_requirements: ["approved", "mergeable"]
+  - name: multitenancy-dev
+    dir: terraform-multitenancy/envs/eu-de/dev
+    workspace: default
+    autoplan:
+      enabled: true
+      when_modified:
+        - "**/*.tf"
+        - ".terraform.lock.hcl"
+    terraform_version: v1.7.5
+    apply_requirements: ["approved", "mergeable"]
+  - name: multitenancy-prod
+    dir: terraform-multitenancy/envs/eu-de/prod
+    workspace: default
+    autoplan:
+      enabled: true
+      when_modified:
+        - "**/*.tf"
+        - ".terraform.lock.hcl"
+    terraform_version: v1.7.5
+    apply_requirements: ["approved", "mergeable"]
 
 workflows:
   default:
