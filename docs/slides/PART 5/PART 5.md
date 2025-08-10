@@ -1,6 +1,6 @@
 ## Slide 1 Atlantis Architecture
 
-Atlantis is a tool that brings automation to Terraform or Terragrunt workflows inside Git.
+Atlantis is a tool that brings automation to Terraform workflows inside Git.
 
 It listens for pull requests, runs a plan automatically, and posts the results as a comment in the PR.
 This gives reviewers immediate feedback on what changes will be made before anything is applied.

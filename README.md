@@ -5,11 +5,12 @@ See [Installation Guide](docs/INSTALL.md) for the details.
 
 # Part 2
 ## Slides from PART 1 to PART 3
-terraform-minimal/ deploy and discussion
+– Introduce terraform-minimal/ deploy and discussion
 
 # Part 3
 ## Slides PART 4
-– Introduce terragrunt-live/ and deploy dev env
+– Introduce terraform-multitenancy/ and deploy envs
+- tell pros and cons
 
 # Part 4
 ## Slides PART 5
