@@ -21,3 +21,4 @@ config:
   pulumi:tags:
     value:
       pulumi:template: openstack-python
+  instance_count: 3
