@@ -1,0 +1,23 @@
+name: example
+description: Simple usage example
+runtime:
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv
+config:
+  openstack:cloud:
+    value: workshop
+#  openstack:authUrl:
+#    value: https://iam.eu-de.otc.t-systems.com/v3
+#  openstack:password:
+#    value: password
+#  openstack:userDomainName:
+#    value: OTC00000000001XXXXXXXXX
+#  openstack:tenantName:
+#    value: eu-de
+#  openstack:userName:
+#    value: myname
+  pulumi:tags:
+    value:
+      pulumi:template: openstack-python
