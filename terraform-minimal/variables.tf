@@ -1,6 +1,6 @@
 variable "cloud" {
   type    = string
-  default = "dev"
+  default = "workshop"
 }
 
 variable "keypair_name" {
@@ -33,9 +33,3 @@ variable "image_name" {
   type    = string
   default = "Standard_Ubuntu_24.04_amd64_uefi_latest"
 }
-
-variable "ansible_kp" {
-  type    = string
-  default = "/Users/antonsidelnikov/IdeaProjects/terraform-workshop/terraform-minimal/ansible/workshop-demo.pem"
-}
-

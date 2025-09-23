@@ -1,6 +1,12 @@
 # Keypair
-data "opentelekomcloud_compute_keypair_v2" "kp" {
+resource "opentelekomcloud_compute_keypair_v2" "kp" {
   name = var.keypair_name
+}
+
+resource "local_sensitive_file" "foo" {
+  content  = opentelekomcloud_compute_keypair_v2.kp.private_key
+  filename = "${path.module}/pk.pem"
+  file_permission = "0600"
 }
 
 # VPC + subnet
@@ -77,7 +83,7 @@ resource "opentelekomcloud_blockstorage_volume_v2" "vol_1" {
 resource "opentelekomcloud_compute_instance_v2" "vm" {
   name              = "workshop-vm"
   flavor_id         = data.opentelekomcloud_compute_flavor_v2.flavor.id
-  key_pair          = data.opentelekomcloud_compute_keypair_v2.kp.name
+  key_pair          = opentelekomcloud_compute_keypair_v2.kp.name
   availability_zone = var.az
 
   network {
@@ -91,7 +97,6 @@ resource "opentelekomcloud_compute_instance_v2" "vm" {
     destination_type      = "volume"
     delete_on_termination = true
   }
-
 }
 
 # Floating IP and association
@@ -104,8 +109,7 @@ resource "opentelekomcloud_networking_floatingip_associate_v2" "fip_assoc" {
   port_id     = opentelekomcloud_networking_port_v2.port.id
 }
 
-# Provision with Ansible (installs nginx)
-resource "null_resource" "ansible_provision" {
+resource "null_resource" "wait_for_ssh" {
   # Re-run if the floating IP changes
   triggers = {
     ip = opentelekomcloud_networking_floatingip_v2.fip.address
@@ -115,10 +119,39 @@ resource "null_resource" "ansible_provision" {
     opentelekomcloud_networking_floatingip_associate_v2.fip_assoc
   ]
 
+  provisioner "remote-exec" {
+    inline = [
+      # Wait for cloud-init to finish if present, but don't fail if it's missing
+      "cloud-init status --wait || true",
+      "echo 'SSH ready'"
+    ]
+
+    connection {
+      type        = "ssh"
+      host        = opentelekomcloud_networking_floatingip_v2.fip.address
+      user        = "ubuntu"
+      private_key = opentelekomcloud_compute_keypair_v2.kp.private_key
+      timeout     = "10m"
+    }
+  }
+}
+
+# Provision with Ansible (installs nginx)
+resource "null_resource" "ansible_provision" {
+  # Re-run if the floating IP changes
+  triggers = {
+    ip = opentelekomcloud_networking_floatingip_v2.fip.address
+  }
+
+  depends_on = [
+    opentelekomcloud_networking_floatingip_associate_v2.fip_assoc,
+    null_resource.wait_for_ssh
+  ]
+
   provisioner "local-exec" {
     command = <<EOT
       set -e
-      ansible-playbook -i ${opentelekomcloud_networking_floatingip_v2.fip.address}, --private-key ${var.ansible_kp} -e target=all ansible/site.yaml -u ubuntu --ssh-extra-args='-o StrictHostKeyChecking=no'
+      ansible-playbook -i ${opentelekomcloud_networking_floatingip_v2.fip.address}, --private-key ${path.module}/pk.pem -e target=all ansible/site.yaml -u ubuntu --ssh-extra-args='-o StrictHostKeyChecking=no'
     EOT
     interpreter = ["/bin/bash", "-c"]
     environment = {
@@ -128,7 +161,7 @@ resource "null_resource" "ansible_provision" {
 }
 
 output "ssh_command" {
-  value = "ssh -i ${var.ansible_kp} ubuntu@${opentelekomcloud_networking_floatingip_v2.fip.address}"
+  value = "ssh -i ${path.module}/pk.pem ubuntu@${opentelekomcloud_networking_floatingip_v2.fip.address}"
 }
 
 output "http_url" {
