@@ -1,6 +1,6 @@
 variable "cloud" {
   type    = string
-  default = "terraform446"
+  default = "dev"
 }
 
 variable "redis_password" {
