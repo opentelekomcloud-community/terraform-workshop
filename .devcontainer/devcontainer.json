@@ -1,0 +1,24 @@
+{
+  "name": "Terraform Workshop",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "features": {
+    "ghcr.io/devcontainers/features/terraform:1": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hashicorp.terraform",
+        "ms-azuretools.vscode-docker",
+        "ms-python.python",
+        "GitHub.copilot",
+        "redhat.ansible"
+      ]
+    }
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.config/openstack,target=/home/vscode/.config/openstack,type=bind,consistency=cached"
+  ]
+}
