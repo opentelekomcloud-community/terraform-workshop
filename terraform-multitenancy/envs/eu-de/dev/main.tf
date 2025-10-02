@@ -20,7 +20,7 @@ module "networking" {
     {
       port_range_min = 80
       port_range_max = 80
-    }
+    },
     {
       port_range_min = 8080
       port_range_max = 8080
